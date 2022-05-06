@@ -53,42 +53,42 @@ const prisma = new PrismaClient();
 })();*/
 
 (async function main() {
-  try {
-    const woopa = await prisma.alumno.upsert({
-      where: { name: "Woopa" },
-      update: {},
-      create: {
-        name: "Woopa",
-        lang: "Espanol",
-        missionCommander: "carlo",
-      },
-    });
+    try {
+        const woopa = await prisma.alumno.upsert({
+            where: { name: "Woopa" },
+            update: {},
+            create: {
+                name: "Woopa",
+                lang: "Espanol",
+                missionCommander: "carlo",
+            },
+        });
 
-    const woopa1 = await prisma.alumno.upsert({
-      where: { name: "Woopa 1" },
-      update: {},
-      create: {
-        name: "Woopa 1",
-        lang: "Espanol",
-        missionCommander: "fer",
-      },
-    });
+        const woopa1 = await prisma.alumno.upsert({
+            where: { name: "Woopa 1" },
+            update: {},
+            create: {
+                name: "Woopa 1",
+                lang: "Espanol",
+                missionCommander: "fer",
+            },
+        });
 
-    const woopa2 = await prisma.alumno.upsert({
-      where: { name: "Woopa 2" },
-      update: {},
-      create: {
-        name: "Woopa 2",
-        lang: "Ingles",
-        missionCommander: "Luis",
-      },
-    });
+        const woopa2 = await prisma.alumno.upsert({
+            where: { name: "Woopa 2" },
+            update: {},
+            create: {
+                name: "Woopa 2",
+                lang: "Ingles",
+                missionCommander: "Luis",
+            },
+        });
 
-    console.log("Create 3 students");
-  } catch (e) {
-    console.error(e);
-    process.exit(1);
-  } finally {
-    await prisma.$disconnect();
-  }
+        console.log("Create 3 students");
+    } catch (e) {
+        console.error(e);
+        process.exit(1);
+    } finally {
+        await prisma.$disconnect();
+    }
 })();
