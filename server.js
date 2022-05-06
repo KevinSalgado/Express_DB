@@ -59,3 +59,19 @@ app.delete("/explorers/:id", async (req, res) => {
   await prisma.explorer.delete({ where: { id: id } });
   return res.json({ message: "Eliminado correctamente" });
 });
+
+app.get("/alumnos", async (req, res) => {
+  const allStudents = await prisma.alumno.findMany({});
+  res.json(allStudents);
+});
+
+app.post("/alumnos", async (req, res) => {
+  const alumno = {
+    name: req.body.name,
+    lang: req.body.lang,
+    missionCommander: req.body.missionCommander,
+  };
+  const message = "Alumno creado.";
+  await prisma.alumno.create({ data: alumno });
+  return res.json({ message });
+});
