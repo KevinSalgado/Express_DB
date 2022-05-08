@@ -8,70 +8,87 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 app.get("/", (req, res) => {
-    res.json({ message: "alive" });
+  res.json({ message: "alive" });
 });
 
 app.listen(port, () => {
-    console.log(`Listening to requests on port ${port}`);
+  console.log(`Listening to requests on port ${port}`);
 });
 
 app.get("/explorers", async (req, res) => {
-    const allExplorers = await prisma.explorer.findMany({});
-    res.json(allExplorers);
+  const allExplorers = await prisma.explorer.findMany({});
+  res.json(allExplorers);
 });
 
 app.get("/explorers/:id", async (req, res) => {
-    const id = req.params.id;
-    const explorer = await prisma.explorer.findUnique({
-        where: { id: parseInt(id) },
-    });
-    res.json(explorer);
+  const id = req.params.id;
+  const explorer = await prisma.explorer.findUnique({
+    where: { id: parseInt(id) },
+  });
+  res.json(explorer);
 });
 
 app.post("/explorers", async (req, res) => {
-    const explorer = {
-        name: req.body.name,
-        username: req.body.username,
-        mission: req.body.mission,
-    };
-    const message = "Explorer creado.";
-    await prisma.explorer.create({ data: explorer });
-    return res.json({ message });
+  const explorer = {
+    name: req.body.name,
+    username: req.body.username,
+    mission: req.body.mission,
+  };
+  const message = "Explorer creado.";
+  await prisma.explorer.create({ data: explorer });
+  return res.json({ message });
 });
 
 app.put("/explorers/:id", async (req, res) => {
-    const id = parseInt(req.params.id);
+  const id = parseInt(req.params.id);
 
-    await prisma.explorer.update({
-        where: {
-            id: id,
-        },
-        data: {
-            mission: req.body.mission,
-        },
-    });
+  await prisma.explorer.update({
+    where: {
+      id: id,
+    },
+    data: {
+      mission: req.body.mission,
+    },
+  });
 
-    return res.json({ message: "Actualizado correctamente" });
+  return res.json({ message: "Actualizado correctamente" });
 });
 
 app.delete("/explorers/:id", async (req, res) => {
-    const id = parseInt(req.params.id);
-    await prisma.explorer.delete({ where: { id: id } });
-    return res.json({ message: "Eliminado correctamente" });
+  const id = parseInt(req.params.id);
+  await prisma.explorer.delete({ where: { id: id } });
+  return res.json({ message: "Eliminado correctamente" });
 });
 
 app.get("/alumnos", async (req, res) => {
-    const allStudents = await prisma.alumno.findMany({});
-    res.json(allStudents);
+  const allStudents = await prisma.alumno.findMany({});
+  res.json(allStudents);
 });
 
 app.post("/alumnos", async (req, res) => {
-    const alumno = {
-        name: req.body.name,
-        lang: req.body.lang,
-        missionCommander: req.body.missionCommander,
-    };
-    const message = "Alumno creado.";
-    await prisma.alumno.create({ data: alumno });
-    return res.json({ message });
+  const alumno = {
+    name: req.body.name,
+    lang: req.body.lang,
+    missionCommander: req.body.missionCommander,
+  };
+  const message = "Alumno creado.";
+  await prisma.alumno.create({ data: alumno });
+  return res.json({ message });
 });
+
+// Cors
+
+const cors = require("cors");
+
+/*const corsOptions = {
+  origin: "http://localhost:8081",
+};
+
+app.use(cors(corsOptions));*/
+
+const corsOptions = {
+  origin: "http://localhost:8081/",
+  optionsSuccessStatus: 200,
+};
+app.use(cors());
+app.options("*", cors());
