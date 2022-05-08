@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-/*(async function main() {
+(async function main() {
   try {
     const woopa = await prisma.explorer.upsert({
       where: { name: "Woopa" },
@@ -50,9 +50,9 @@ const prisma = new PrismaClient();
   } finally {
     await prisma.$disconnect();
   }
-})();*/
+})();
 
-(async function main() {
+/*(async function main() {
     try {
         const woopa = await prisma.alumno.upsert({
             where: { name: "Woopa" },
@@ -91,4 +91,4 @@ const prisma = new PrismaClient();
     } finally {
         await prisma.$disconnect();
     }
-})();
+})();*/
